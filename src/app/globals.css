@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* 1. Brand Colors */
+  --color-brand-primary: #4f46e5;      /* Indigo 600 */
+  --color-brand-primary-hover: #4338ca; /* Indigo 700 */
+  --color-brand-secondary: #eef2ff;    /* Indigo 50 */
+  
+  /* 2. Neutral Surfaces */
+  --color-app-bg: #f8fafc;             /* Slate 50 */
+  --color-app-card: #ffffff;
+  --color-app-border: #e2e8f0;         /* Slate 200 */
+  
+  /* 3. Text Colors */
+  --color-app-text-main: #0f172a;      /* Slate 900 */
+  --color-app-text-muted: #64748b;     /* Slate 500 */
+
+  /* 4. Radius & Shadows */
+  --radius-app: 12px;
+  --shadow-soft: 0 8px 30px rgb(0,0,0,0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* 5. Base Styles */
+@layer base {
+  *, ::after, ::before {
+    border-color: var(--color-app-border);
+  }
+
+  body {
+    background-color: var(--color-app-bg);
+    color: var(--color-app-text-main);
+    /* Manrope is applied via layout.tsx, but we ensure antialiasing here */
+    @apply antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 6. Utility Components (Optional but helpful) */
+@layer components {
+  .glass-card {
+    @apply bg-white border border-slate-200/60 shadow-[var(--shadow-soft)] rounded-[var(--radius-app)];
+  }
 }
