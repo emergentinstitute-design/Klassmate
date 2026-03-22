@@ -15,23 +15,31 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+ const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false, // We handle the redirect manually below
+      });
 
-    if (result?.error) {
-      toast.error("Invalid credentials. Please try again.");
+      if (result?.error) {
+        toast.error("Invalid credentials. Please try again.");
+        setLoading(false); // Stop the spinner so the user can try again
+      } else {
+        toast.success("Authentication successful");
+        
+        // Use a hard redirect for the initial login. 
+        // This clears the "Authenticating..." state and forces 
+        // the browser to load the dashboard fresh with the new session.
+        window.location.href = "/admission"; 
+      }
+    } catch (error) {
+      toast.error("A connection error occurred.");
       setLoading(false);
-    } else {
-      toast.success("Authentication successful");
-      router.push("/admission");
-      router.refresh();
     }
   };
 
