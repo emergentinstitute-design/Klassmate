@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 export default function RootPage() {
-  // If your file is at src/app/(dashboard)/dashboard/page.tsx
-  // The URL is simply "/dashboard"
+  // Since the Middleware ensures the user is logged in before reaching here,
+  // we can safely redirect them to the main dashboard view.
   redirect("/dashboard"); 
 }
