@@ -41,6 +41,6 @@ export async function middleware(req: NextRequest) {
 export const config = {
   // Use a more specific matcher to avoid running middleware on static files
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!api/cron/keep-alive|_next/static|_next/image|favicon.ico).*)",
   ],
 };
