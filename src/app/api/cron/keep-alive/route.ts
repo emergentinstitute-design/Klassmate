@@ -22,7 +22,10 @@ export async function GET(request: Request) {
 
     // 3. Perform a system-level query (Does not require a specific table)
     // This tells the DB to return its version string, which counts as activity.
-    const { data, error } = await supabase.rpc('version');
+    const { error } = await supabase
+    .from('enquiries') // Use any table name you have (enquiries, users, etc.)
+    .select('*', { count: 'exact', head: true })
+    .limit(1);
 
     if (error) throw error;
 
